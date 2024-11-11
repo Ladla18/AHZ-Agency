@@ -1,4 +1,4 @@
-"use client"
+"use client";
 // components/Navbar.tsx
 import React, { useState } from "react";
 import Image from "next/image";
@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://ahzbackend.onrender.com//api/bookings",
+        "https://ahzbackend.onrender.com/api/bookings", // Fixed URL with single slash
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -94,7 +94,9 @@ const Navbar: React.FC = () => {
             >
               X
             </button>
-            <h2 className="text-xl font-semibold mb-4 text-black">Book a Call</h2>
+            <h2 className="text-xl font-semibold mb-4 text-black">
+              Book a Call
+            </h2>
             <form onSubmit={handleSubmit}>
               <label className="block mb-2 text-black">
                 Name:
@@ -133,6 +135,12 @@ const Navbar: React.FC = () => {
                 Submit
               </button>
             </form>
+
+            {isSubmitted && (
+              <p className="text-green-500 text-center mt-4">
+                Your booking has been submitted successfully!
+              </p>
+            )}
           </div>
         </div>
       )}
