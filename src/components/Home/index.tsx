@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", phoneNumber: "" });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleButtonClick = () => {
@@ -23,7 +23,7 @@ export default function Home() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://ahzbackend.onrender.com//api/bookings",
+        "https://ahzbackend.onrender.com/api/bookings", // Fixed URL with single slash
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -33,7 +33,7 @@ export default function Home() {
 
       if (response.ok) {
         setIsSubmitted(true);
-        setFormData({ name: "", email: "", phone: "" });
+        setFormData({ name: "", email: "", phoneNumber: "" });
         setIsFormOpen(false);
       } else {
         console.error("Failed to submit booking");
@@ -135,11 +135,11 @@ export default function Home() {
                 onChange={handleChange}
                 className="w-full p-2 mb-4 border rounded text-black"
               />
-              <label className="block mb-2 text-black font-bold">Phone:</label>
+              <label className="block mb-2 text-black font-bold">phoneNumber:</label>
               <input
                 type="tel"
-                name="phone"
-                value={formData.phone}
+                name="phoneNumber"
+                value={formData.phoneNumber}
                 onChange={handleChange}
                 className="w-full p-2 mb-4 border rounded text-black"
               />
@@ -154,6 +154,13 @@ export default function Home() {
               Cancel
             </button>
           </div>
+        </div>
+      )}
+
+      {/* Show submission status */}
+      {isSubmitted && (
+        <div className="mt-6 text-center text-lg text-green-500">
+          Your booking has been submitted successfully!
         </div>
       )}
     </div>
