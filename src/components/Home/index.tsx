@@ -1,14 +1,22 @@
-// pages/index.js or a specific component
-
+"use client"
+import { useState } from "react";
 
 export default function Home() {
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
-    
+  const handleButtonClick = () => {
+    setIsFormOpen(true);
+  };
+
+  const handleCloseForm = () => {
+    setIsFormOpen(false);
+  };
+
   return (
-    <div className="bg-black text-white h-screen flex flex-col  items-center">
+    <div className="bg-black text-white h-screen flex flex-col items-center">
       <h2 className="mt-10 text-2xl font-bold mb-3">AHZ Agency</h2>
 
-      <div className=" p-2 mt-10 flex items-center justify-center text-white">
+      <div className="p-2 mt-10 flex items-center justify-center text-white">
         <div className="flex items-center space-x-2">
           {/* Avatar Group */}
           <div className="flex -space-x-4">
@@ -64,33 +72,41 @@ export default function Home() {
         <br />
         turn browsers into buyers and drive sales on autopilot.
       </p>
-      <button className="mt-6 bg-white text-black px-10 py-5 shadow-lg  rounded-2xl font-semibold">
+      <button
+        onClick={handleButtonClick}
+        className="mt-6 bg-white text-black px-10 py-5 shadow-lg rounded-2xl font-semibold"
+      >
         Book a call with Harsh
       </button>
       <p className="text-sm mt-4">
         Fixed costs. No lock-ins. Clear deliverables.
       </p>
-      {/* Companies name */}
-      {/* <div className="relative w-full overflow-hidden" style={{ width: "90%" }}>
-        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10"></div>
-        <div className="animate-marquee whitespace-nowrap">
-          <div className="inline-flex gap-20 text-2xl mt-6">
-            <div>Hansa</div>
-            <div>11x</div>
-            <div>Hansa</div>
-            <div>Combinator</div>
-            <div>11x</div>
-            <div>Hansa</div>
-            <div>Hansa</div>
-            <div>Combinator</div>
-            <div>Hansa</div>
-            <div>11x</div>
-            <div>Hansa</div>
-            <div>Hansa</div>
+
+      {/* Popup Form Modal */}
+      {isFormOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75">
+          <div className="bg-white p-6 rounded-lg w-80 md:w-1/3">
+            <h3 className="text-2xl font-bold text-center mb-4">Book a Call</h3>
+            <form>
+              <label className="block mb-2 text-black font-bold">Name:</label>
+              <input type="text" className="w-full p-2 mb-4 border rounded" />
+              <label className="block mb-2 text-black font-bold">Email:</label>
+              <input type="email" className="w-full p-2 mb-4 border rounded" />
+              <label className="block mb-2 text-black font-bold">Phone:</label>
+              <input type="tel" className="w-full p-2 mb-4 border rounded" />
+              <button
+                type="submit"
+                className="bg-black text-white px-4 py-2 rounded-lg w-full"
+              >
+                Submit
+              </button>
+            </form>
+            <button onClick={handleCloseForm} className="mt-4 text-gray-500">
+              Cancel
+            </button>
           </div>
         </div>
-      </div> */}
+      )}
     </div>
   );
 }
