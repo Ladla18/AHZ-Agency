@@ -1,8 +1,10 @@
-"use client"
+"use client";
 import { useState } from "react";
 
 export default function Home() {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleButtonClick = () => {
     setIsFormOpen(true);
@@ -10,6 +12,32 @@ export default function Home() {
 
   const handleCloseForm = () => {
     setIsFormOpen(false);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:5000/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormData({ name: "", email: "", phone: "" });
+        setIsFormOpen(false);
+      } else {
+        console.error("Failed to submit booking");
+      }
+    } catch (error) {
+      console.error("Error submitting booking:", error);
+    }
   };
 
   return (
@@ -87,13 +115,31 @@ export default function Home() {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75">
           <div className="bg-white p-6 rounded-lg w-80 md:w-1/3">
             <h3 className="text-2xl font-bold text-center mb-4">Book a Call</h3>
-            <form>
+            <form onSubmit={handleSubmit}>
               <label className="block mb-2 text-black font-bold">Name:</label>
-              <input type="text" className="w-full p-2 mb-4 border rounded" />
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full p-2 mb-4 border rounded text-black"
+              />
               <label className="block mb-2 text-black font-bold">Email:</label>
-              <input type="email" className="w-full p-2 mb-4 border rounded" />
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full p-2 mb-4 border rounded text-black"
+              />
               <label className="block mb-2 text-black font-bold">Phone:</label>
-              <input type="tel" className="w-full p-2 mb-4 border rounded" />
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full p-2 mb-4 border rounded text-black"
+              />
               <button
                 type="submit"
                 className="bg-black text-white px-4 py-2 rounded-lg w-full"
