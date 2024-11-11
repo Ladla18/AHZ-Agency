@@ -7,7 +7,7 @@ const SmashButton: React.FC = () => {
   return (
     <div className=" relative flex md:mt-10 mt-5 flex-col items-center justify-center min-h-screen bg-white p-5">
       <h1 className="md:text-5xl text-3xl md:w-4/6 w-10/12  text-center font-bold text-gray-800">
-        I guess all I'm trying to say is you should smash the damn button.
+        I guess all Im trying to say is you should smash the damn button.
       </h1>
       <button
         

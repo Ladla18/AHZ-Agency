@@ -25,9 +25,9 @@ const TrafficConversionChallenge: React.FC = () => {
   return (
     <div className="bg-black text-white p-8 w-full">
       <h1 className="md:text-5xl text-3xl font-bold mb-4 text-center">
-        You don't have a traffic problem...
+        You dont have a traffic problem...
         <br className="hidden md:block" />
-        you're failing to convert that traffic
+        youre failing to convert that traffic
         <br />
         into leads.
       </h1>
